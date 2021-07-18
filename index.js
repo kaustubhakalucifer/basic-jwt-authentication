@@ -4,14 +4,12 @@ const config = require('./config');
 
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.post('/tkcs/jwt',(req,res)=>{
     console.log("Without Basic-> ",req.headers.authorization);
     console.log("With Basic -> ",req.headers.authorization.indexOf('Basic '))
-
     const base64Credentials =  req.headers.authorization.split(' ')[1];
     const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
     const [username, password] = credentials.split(':');
